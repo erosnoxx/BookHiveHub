@@ -1,4 +1,4 @@
-package com.book.hive.hub.domain.entities.Common;
+package com.book.hive.hub.domain.entities.common;
 import jakarta.persistence.*;
 import lombok.Getter;
 import java.time.LocalDateTime;

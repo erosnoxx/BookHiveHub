@@ -1,4 +1,4 @@
-package com.book.hive.hub.presentation.dto.response;
+package com.book.hive.hub.presentation.dto.response.user;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,5 +11,6 @@ public record UserResponseDto(
         String firstName,
         String lastName,
         LocalDate birthDate,
-        LocalDateTime createdAt) {
+        String role,
+        LocalDateTime createdAt){
 }

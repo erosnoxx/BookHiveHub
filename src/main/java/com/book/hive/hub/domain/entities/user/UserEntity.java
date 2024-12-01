@@ -1,6 +1,7 @@
-package com.book.hive.hub.domain.entities;
+package com.book.hive.hub.domain.entities.user;
 
-import com.book.hive.hub.domain.entities.Common.BaseEntity;
+import com.book.hive.hub.domain.entities.common.BaseEntity;
+import com.book.hive.hub.domain.enums.UserRole;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -12,12 +13,9 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -56,29 +54,17 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @NotNull
     private LocalDate birthDate;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<RoleEntity> roles = new HashSet<>();
-
+    @Column(name = "role", nullable = false)
+    @NotNull
+    private UserRole role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> authorities = new HashSet<>();
+        if (this.role == UserRole.ADMIN) return List.of(
+                new SimpleGrantedAuthority("ROLE_ADMIN"),
+                new SimpleGrantedAuthority("ROLE_USER"));
 
-        for (RoleEntity role : this.roles) {
-            if ("ADMIN".equals(role.getName())) {
-                authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-                authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-                return authorities;
-            }
-        }
-
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        return authorities;
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
