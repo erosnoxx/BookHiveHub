@@ -1,11 +1,13 @@
 package com.book.hive.hub.application.configuration.api;
 
+import com.book.hive.hub.application.exceptions.NotFoundException;
 import com.book.hive.hub.presentation.dto.response.common.ErrorResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.naming.AuthenticationException;
 import java.nio.file.AccessDeniedException;
@@ -55,5 +57,16 @@ public class GlobalExceptionHandler {
                 HttpStatus.FORBIDDEN.value(),
                 ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
+    }
+
+    // NotFound (404)
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<ErrorResponseDto> notFoundException(NotFoundException ex) {
+        ErrorResponseDto errorResponse = new ErrorResponseDto(
+                "Resource not found",
+                HttpStatus.NOT_FOUND.value(),
+                "The requested resource could not be found.");
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 }

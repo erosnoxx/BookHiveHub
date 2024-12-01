@@ -1,10 +1,9 @@
 package com.book.hive.hub.presentation.controller.book;
 
-import com.book.hive.hub.application.useCases.book.CreateBookUseCase;
-import com.book.hive.hub.application.useCases.book.GetAllBooksUseCase;
-import com.book.hive.hub.application.useCases.book.GetBookUseCase;
+import com.book.hive.hub.application.useCases.book.*;
 import com.book.hive.hub.presentation.dto.request.book.BookRequestDto;
 import com.book.hive.hub.presentation.dto.response.book.BookResponseDto;
+import com.book.hive.hub.presentation.dto.response.common.DeleteResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +21,11 @@ public class BookController {
     private GetAllBooksUseCase getAllBooksUseCase;
     @Autowired
     private GetBookUseCase getBookUseCase;
+    @Autowired
+    private UpdateBookUseCase updateBookUseCase;
+    @Autowired
+    private DeleteBookUseCase deleteBookUseCase;
+
 
     @PostMapping("")
     public ResponseEntity<BookResponseDto> createBook (
@@ -44,5 +48,22 @@ public class BookController {
         BookResponseDto bookResponseDto = this.getBookUseCase.execute(bookId);
 
         return ResponseEntity.ok().body(bookResponseDto);
+    }
+
+    @PatchMapping("/{book_id}")
+    public ResponseEntity<BookResponseDto> updateBook(
+            @PathVariable("book_id") UUID bookId,
+            @Valid @RequestBody BookRequestDto data) {
+        BookResponseDto bookResponseDto = this.updateBookUseCase.execute(bookId, data);
+
+        return ResponseEntity.ok().body(bookResponseDto);
+    }
+
+    @DeleteMapping("/{book_id}")
+    public ResponseEntity<DeleteResponseDto> deleteBook(
+            @PathVariable("book_id") UUID bookId) {
+        DeleteResponseDto deleteResponseDto = this.deleteBookUseCase.execute(bookId);
+
+        return ResponseEntity.ok().body(deleteResponseDto);
     }
 }

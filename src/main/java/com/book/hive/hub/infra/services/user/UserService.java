@@ -1,5 +1,6 @@
 package com.book.hive.hub.infra.services.user;
 
+import com.book.hive.hub.application.exceptions.NotFoundException;
 import com.book.hive.hub.data.user.UserRepository;
 import com.book.hive.hub.domain.entities.user.UserEntity;
 import com.book.hive.hub.presentation.dto.request.authentication.RegisterRequestDto;
@@ -140,7 +141,7 @@ public class UserService {
     }
 
     private void isUserEmpty(Optional<UserEntity> user, UUID userId) {
-        if (user.isEmpty()) throw new OpenApiResourceNotFoundException(
+        if (user.isEmpty()) throw new NotFoundException(
                 "Usuário com o ID: " + userId.toString() + " Não encontrado");
     }
 }

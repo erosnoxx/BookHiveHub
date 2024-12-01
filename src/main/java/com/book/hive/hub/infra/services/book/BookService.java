@@ -1,9 +1,12 @@
 package com.book.hive.hub.infra.services.book;
 
+import com.book.hive.hub.application.exceptions.NotFoundException;
 import com.book.hive.hub.data.book.BookRepository;
 import com.book.hive.hub.domain.entities.book.BookEntity;
+import com.book.hive.hub.domain.entities.user.UserEntity;
 import com.book.hive.hub.presentation.dto.request.book.BookRequestDto;
 import com.book.hive.hub.presentation.dto.response.book.BookResponseDto;
+import com.book.hive.hub.presentation.dto.response.common.DeleteResponseDto;
 import org.springdoc.api.OpenApiResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,8 +73,55 @@ public class BookService {
         );
     }
 
+    public BookResponseDto updateBook(UUID bookId, BookRequestDto data) {
+        Optional<BookEntity> book = this.repository.findById(bookId);
+
+        isBookValid(book, bookId);
+
+        BookEntity validBook = book.get();
+
+        if (data.title() != null && !data.title().isBlank())
+            validBook.setTitle(data.title());
+
+        if (data.author() != null && !data.author().isBlank())
+            validBook.setAuthor(data.author());
+
+        if (data.genre() != null && !data.genre().isBlank())
+            validBook.setGenre(data.genre());
+
+        if (data.publicationYear() != null)
+            validBook.setPublicationYear(data.publicationYear());
+
+        if (data.status() != null)
+            validBook.setStatus(data.status());
+
+        this.repository.save(validBook);
+
+        return new BookResponseDto(
+                validBook.getId(),
+                validBook.getTitle(),
+                validBook.getAuthor(),
+                validBook.getGenre(),
+                validBook.getPublicationYear(),
+                validBook.getStatus()
+        );
+    }
+
+    public DeleteResponseDto deleteBook(UUID bookId) {
+        Optional<BookEntity> book = this.repository.findById(bookId);
+
+        isBookValid(book, bookId);
+
+        BookEntity validBook = book.get();
+
+        this.repository.delete(validBook);
+
+        return new DeleteResponseDto(true,
+                "Livro com ID: " + bookId.toString() + " Deletado com sucesso");
+    }
+
     private void isBookValid(Optional<BookEntity> book, UUID bookId) {
-        if (book.isEmpty()) throw new OpenApiResourceNotFoundException(
+        if (book.isEmpty()) throw new NotFoundException(
                 "Livro com o ID: " + bookId.toString() + " Não encontrado");
     }
 }
