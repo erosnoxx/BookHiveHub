@@ -1,6 +1,7 @@
-package com.book.hive.hub.configuration.security;
+package com.book.hive.hub.application.configuration.security;
 
-import com.book.hive.hub.data.UserRepository;
+import com.book.hive.hub.data.user.UserRepository;
+import com.book.hive.hub.infra.services.authorization.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,6 +1,6 @@
-package com.book.hive.hub.configuration.api;
+package com.book.hive.hub.application.configuration.api;
 
-import com.book.hive.hub.presentation.dto.response.ErrorResponseDto;
+import com.book.hive.hub.presentation.dto.response.common.ErrorResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

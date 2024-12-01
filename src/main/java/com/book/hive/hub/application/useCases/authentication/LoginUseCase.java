@@ -1,10 +1,10 @@
-package com.book.hive.hub.useCases;
+package com.book.hive.hub.application.useCases.authentication;
 
-import com.book.hive.hub.configuration.security.TokenService;
-import com.book.hive.hub.domain.entities.UserEntity;
-import com.book.hive.hub.infra.services.UserService;
-import com.book.hive.hub.presentation.dto.request.AuthenticationRequestDto;
-import com.book.hive.hub.presentation.dto.response.LoginResponseDto;
+import com.book.hive.hub.infra.services.authorization.TokenService;
+import com.book.hive.hub.domain.entities.user.UserEntity;
+import com.book.hive.hub.infra.services.user.UserService;
+import com.book.hive.hub.presentation.dto.request.authentication.AuthenticationRequestDto;
+import com.book.hive.hub.presentation.dto.response.authentication.LoginResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,8 +17,6 @@ import java.util.Map;
 public class LoginUseCase {
     @Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
-    private UserService userService;
     @Autowired
     private TokenService tokenService;
 

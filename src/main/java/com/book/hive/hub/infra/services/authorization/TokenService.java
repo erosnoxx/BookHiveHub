@@ -1,10 +1,10 @@
-package com.book.hive.hub.configuration.security;
+package com.book.hive.hub.infra.services.authorization;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.book.hive.hub.domain.entities.UserEntity;
+import com.book.hive.hub.domain.entities.user.UserEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 

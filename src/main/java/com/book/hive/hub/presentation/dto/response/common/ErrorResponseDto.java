@@ -1,4 +1,4 @@
-package com.book.hive.hub.presentation.dto.response;
+package com.book.hive.hub.presentation.dto.response.common;
 
 public record ErrorResponseDto(
         String message,

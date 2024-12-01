@@ -1,4 +1,4 @@
-package com.book.hive.hub.presentation.dto.response;
+package com.book.hive.hub.presentation.dto.response.authentication;
 
 import java.util.UUID;
 

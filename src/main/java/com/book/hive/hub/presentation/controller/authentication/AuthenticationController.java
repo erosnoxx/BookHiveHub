@@ -1,8 +1,12 @@
-package com.book.hive.hub.presentation.controller;
+package com.book.hive.hub.presentation.controller.authentication;
 
-import com.book.hive.hub.presentation.dto.request.*;
-import com.book.hive.hub.presentation.dto.response.*;
-import com.book.hive.hub.useCases.*;
+import com.book.hive.hub.presentation.dto.request.authentication.AuthenticationRequestDto;
+import com.book.hive.hub.presentation.dto.request.authentication.RegisterRequestDto;
+import com.book.hive.hub.presentation.dto.response.authentication.LoginResponseDto;
+import com.book.hive.hub.presentation.dto.response.authentication.RegisterResponseDto;
+import com.book.hive.hub.presentation.dto.response.common.ErrorResponseDto;
+import com.book.hive.hub.application.useCases.authentication.LoginUseCase;
+import com.book.hive.hub.application.useCases.authentication.RegisterUseCase;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

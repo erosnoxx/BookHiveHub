@@ -1,9 +1,9 @@
-package com.book.hive.hub.useCases;
+package com.book.hive.hub.application.useCases.authentication;
 
-import com.book.hive.hub.infra.services.UserService;
-import com.book.hive.hub.presentation.dto.request.RegisterRequestDto;
-import com.book.hive.hub.presentation.dto.response.RegisterResponseDto;
-import com.book.hive.hub.presentation.dto.response.UserResponseDto;
+import com.book.hive.hub.infra.services.user.UserService;
+import com.book.hive.hub.presentation.dto.request.authentication.RegisterRequestDto;
+import com.book.hive.hub.presentation.dto.response.authentication.RegisterResponseDto;
+import com.book.hive.hub.presentation.dto.response.user.UserResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
