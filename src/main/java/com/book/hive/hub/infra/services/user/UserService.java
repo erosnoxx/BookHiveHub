@@ -2,7 +2,9 @@ package com.book.hive.hub.infra.services.user;
 
 import com.book.hive.hub.application.exceptions.NotFoundException;
 import com.book.hive.hub.data.user.UserRepository;
+import com.book.hive.hub.data.user.WishListRepository;
 import com.book.hive.hub.domain.entities.user.UserEntity;
+import com.book.hive.hub.domain.entities.user.WishListEntity;
 import com.book.hive.hub.presentation.dto.request.authentication.RegisterRequestDto;
 import com.book.hive.hub.presentation.dto.response.common.DeleteResponseDto;
 import com.book.hive.hub.presentation.dto.response.user.UserResponseDto;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
 public class UserService {
     @Autowired
     private UserRepository repository;
+    @Autowired
+    private WishListRepository wishListRepository;
 
     public UserResponseDto createUser(RegisterRequestDto data) {
         if (this.repository.findByUsername(data.username()) != null) throw new IllegalArgumentException();
@@ -35,6 +39,12 @@ public class UserService {
         user.setRole(data.role());
 
         UserEntity savedUser = this.repository.save(user);
+
+        WishListEntity wishListEntity = new WishListEntity();
+        wishListEntity.setUser(savedUser);
+        wishListEntity.setBooks(new ArrayList<>());
+
+        this.wishListRepository.save(wishListEntity);
 
         return new UserResponseDto(
                 savedUser.getId(),

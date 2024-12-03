@@ -8,7 +8,6 @@ import com.book.hive.hub.presentation.dto.request.authentication.RegisterRequest
 import com.book.hive.hub.presentation.dto.response.common.DeleteResponseDto;
 import com.book.hive.hub.presentation.dto.response.user.UserResponseDto;
 import jakarta.validation.Valid;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +40,7 @@ public class UserController {
         return ResponseEntity.ok().body(user);
     }
 
-    @PatchMapping("/{user_id}")
+    @PutMapping("/{user_id}")
     public ResponseEntity<UserResponseDto> updateUser(
             @PathVariable("user_id") UUID userId,
             @Valid @RequestBody RegisterRequestDto data) {

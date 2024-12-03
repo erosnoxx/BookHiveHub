@@ -58,6 +58,9 @@ public class UserEntity extends BaseEntity implements UserDetails {
     @NotNull
     private UserRole role;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<WishListEntity> wishlists;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.role == UserRole.ADMIN) return List.of(

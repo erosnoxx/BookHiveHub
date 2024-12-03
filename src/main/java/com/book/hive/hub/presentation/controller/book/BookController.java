@@ -50,7 +50,7 @@ public class BookController {
         return ResponseEntity.ok().body(bookResponseDto);
     }
 
-    @PatchMapping("/{book_id}")
+    @PutMapping("/{book_id}")
     public ResponseEntity<BookResponseDto> updateBook(
             @PathVariable("book_id") UUID bookId,
             @Valid @RequestBody BookRequestDto data) {

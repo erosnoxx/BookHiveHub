@@ -1,9 +1,5 @@
--- V1__Create_users_table.sql
-
--- Habilitar extensão para gerar UUIDs
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
 
--- Tabela de usuários
 CREATE TABLE users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     username VARCHAR(50) NOT NULL UNIQUE,
